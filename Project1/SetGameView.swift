@@ -13,11 +13,12 @@ struct SetGameView: View {
     
     var body: some View {
         HStack {
-            ForEach(setGame.cards.prefix(4)) {card in
-                CardView(card: card)
-                    .onTapGesture{
-                        setGame.choose(card)
-                    }
+            ForEach(setGame.cards) {card in
+                    CardView(card: card)
+                        .onTapGesture{
+                            setGame.choose(card)
+                        }
+
             }
         }
         .padding()

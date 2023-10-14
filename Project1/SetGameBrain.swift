@@ -8,27 +8,7 @@
 import Foundation
 
 struct SetGameBrain<CardContent> {
-    var cards: Array<Card>
-    
-    enum ShapeEnum: String, CaseIterable, Identifiable{
-        case squiggle
-        case diamond
-        case pill
-        var id: String {self.rawValue}
-    }
-    enum ColorEnum: String, CaseIterable, Identifiable{
-        case green
-        case purple
-        case red
-        var id: String {self.rawValue}
-    }
-    enum FillEnum: String, CaseIterable, Identifiable {
-        case empty
-        case half
-        case full
-        var id: String {self.rawValue}
-    }
-
+    //MARK: - Initiation
     init() {
         cards = []
         
@@ -50,21 +30,54 @@ struct SetGameBrain<CardContent> {
             }
         }
         cards.shuffle()
+        
+        for (index,var card) in cards.prefix(4).enumerated() {
+            card.isOnBoard = true
+            cards[index] = card
+        }
     }
     
-    func choose(card: Card){
+    //MARK: - functions
+    mutating func choose(card: Card){
         print("You chose \(card)")
+        
+//        if let index = cards.firstIndex(matching: card) {
+//            cards[index].isSelected.toggle()
+//        }
     }
     
-    //func startGame
+//    mutating func startGame() {
+//        
+//    }
+    
+    //MARK: - Properties
+    var cards: Array<Card>
+    
+    enum ShapeEnum: String, CaseIterable, Identifiable{
+        case squiggle
+        case diamond
+        case pill
+        var id: String {self.rawValue}
+    }
+    enum ColorEnum: String, CaseIterable, Identifiable{
+        case green
+        case purple
+        case red
+        var id: String {self.rawValue}
+    }
+    enum FillEnum: String, CaseIterable, Identifiable {
+        case empty
+        case half
+        case full
+        var id: String {self.rawValue}
+    }
+    
     struct Card: Identifiable {
-        //MARK:- Properties
+        //MARK:- Properties within Card
         var id = UUID()
         var isSelected = false
         var isMatched = false
-        var isOnBoard = true
-        
-        //var content: CardContent
+        var isOnBoard = false
         
         var shape: ShapeEnum
         var color: ColorEnum

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FC46F39E2ADA4D0D00763A32 /* Array+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46F39D2ADA4D0D00763A32 /* Array+Identifiable.swift */; };
 		FC8B6C192AD9D93E0027477A /* Squiggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8B6C182AD9D93E0027477A /* Squiggle.swift */; };
 		FC8B6C1B2AD9DC970027477A /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8B6C1A2AD9DC970027477A /* Diamond.swift */; };
 		FC8B6C1D2AD9E09F0027477A /* Pill.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8B6C1C2AD9E09F0027477A /* Pill.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FC46F39D2ADA4D0D00763A32 /* Array+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Identifiable.swift"; sourceTree = "<group>"; };
 		FC8B6C182AD9D93E0027477A /* Squiggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squiggle.swift; sourceTree = "<group>"; };
 		FC8B6C1A2AD9DC970027477A /* Diamond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diamond.swift; sourceTree = "<group>"; };
 		FC8B6C1C2AD9E09F0027477A /* Pill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pill.swift; sourceTree = "<group>"; };
@@ -81,6 +83,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FC46F39C2ADA4CC200763A32 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				FC46F39D2ADA4D0D00763A32 /* Array+Identifiable.swift */,
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
 		FC8B6C152AD9D7BA0027477A /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +142,7 @@
 		FCE2CF312AD9D58A00770B00 /* Project1 */ = {
 			isa = PBXGroup;
 			children = (
+				FC46F39C2ADA4CC200763A32 /* Utility */,
 				FC8B6C172AD9D7CE0027477A /* Model */,
 				FC8B6C162AD9D7C20027477A /* View Model */,
 				FC8B6C152AD9D7BA0027477A /* View */,
@@ -301,6 +312,7 @@
 				FCE2CF352AD9D58A00770B00 /* SetGameView.swift in Sources */,
 				FC8B6C1D2AD9E09F0027477A /* Pill.swift in Sources */,
 				FCE2CF332AD9D58A00770B00 /* Project1App.swift in Sources */,
+				FC46F39E2ADA4D0D00763A32 /* Array+Identifiable.swift in Sources */,
 				FC8B6C212AD9E98A0027477A /* SetGame.swift in Sources */,
 				FC8B6C232AD9E9A50027477A /* SetGameBrain.swift in Sources */,
 			);
