@@ -20,6 +20,7 @@ struct PillShape: View {
                 .frame(width: 220, height: 100)
                 .scaledToFit()
         }
+        .rotationEffect(Angle(degrees: 90))
     }
 }
 

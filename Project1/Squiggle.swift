@@ -18,7 +18,7 @@ struct SquiggleShape: View {
                 }
                 .aspectRatio(1/2, contentMode: .fit)
             //}
-            .rotationEffect(Angle(degrees: 180))
+            .rotationEffect(Angle(degrees: 90))
         }
         .foregroundStyle(.purple)
 //        .background(.pink)
