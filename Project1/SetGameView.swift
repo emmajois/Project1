@@ -12,17 +12,21 @@ struct SetGameView: View {
     let setGame: SetGame
     
     var body: some View {
-        HStack {
-            ForEach(setGame.cards) {card in
-                //getElements(card: card)
+        GeometryReader { geometry in
+            LazyVGrid (columns: columns(for: geometry.size)) {
+                ForEach(setGame.cards) {card in
                     CardView(card: card)
                         .onTapGesture{
                             setGame.choose(card)
                         }
-
+                }
             }
+            .padding()
         }
-        .padding()
+    }
+    
+    private func columns(for size: CGSize) -> [GridItem] {
+        Array(repeating: GridItem(.flexible()), count: Int(size.width / 125))
     }
 }
 
@@ -30,22 +34,30 @@ struct CardView: View {
     let card: SetGameBrain<String>.Card
                             
     var body: some View {
-        ZStack {
-            if card.isOnBoard {
-                RoundedRectangle(cornerRadius: Card.cornerRadius).fill(.white)
-                RoundedRectangle(cornerRadius: Card.cornerRadius).stroke()
+        if card.isOnBoard {
+            GeometryReader { geometry in
+                ZStack {
+                    RoundedRectangle(cornerRadius: Card.cornerRadius).fill(.white)
+                    RoundedRectangle(cornerRadius: Card.cornerRadius).stroke()
                     switch card.shape {
-                        case .diamond : DiamondShape(shapeColor: getColor(), shapeFill: getFill(), iterator: card.count)
-                        case .pill: PillShape(shapeColor: getColor(), shapeFill: getFill(), iterator: card.count)
-                        case .squiggle: SquiggleShape(shapeColor: getColor(), shapeFill: getFill(), iterator: card.count)
+                    case .diamond : DiamondShape(shapeColor: getColor(),
+                                                 shapeFill: getFill(),
+                                                 iterator: card.count)
+                    case .pill: PillShape(shapeColor: getColor(),
+                                          shapeFill: getFill(),
+                                          iterator: card.count)
+                    case .squiggle: SquiggleShape(shapeColor: getColor(),
+                                                  shapeFill: getFill(),
+                                                  iterator: card.count)
                     }
-                if card.isSelected {
-                    RoundedRectangle(cornerRadius: Card.cornerRadius).stroke(Color.yellow, lineWidth: 5)
+                    if card.isSelected {
+                        RoundedRectangle(cornerRadius: Card.cornerRadius).stroke(Color.yellow, lineWidth: 5)
+                    }
                 }
+                .foregroundStyle(.mint)
             }
+            .aspectRatio(Card.aspectRatio, contentMode: .fit)
         }
-        .foregroundStyle(.mint)
-        .aspectRatio(Card.aspectRatio, contentMode: .fit)
     }
     
     func getColor() -> Color {
@@ -70,21 +82,11 @@ struct CardView: View {
         return shapeFill
     }
     
-//    func getShape() -> any View {
-//        let shapeShape : any View
-//            
-//        switch card.shape {
-//        case .diamond : shapeShape = DiamondShape()
-//        case .pill: shapeShape = PillShape()
-//        case .squiggle: shapeShape = SquiggleShape(shapeColor: .red, shapeFill: 0.25)
-//        }
-//        return shapeShape
-//    }
-    
     //MARK: - Drawing Constants
     private struct Card {
         static let aspectRatio = 2.0/3.0
         static let cornerRadius = 10.0
+        static let scaleFactor = 0.75
     }
 }
 

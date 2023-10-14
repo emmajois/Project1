@@ -23,7 +23,7 @@ struct DiamondShape: View {
                 ZStack {
                     Diamond()
                         .opacity(shapeFill)
-                    Diamond().stroke(lineWidth: 8)
+                    Diamond().stroke(lineWidth: 6)
                 }
                 .aspectRatio(1/2, contentMode: .fit)
             }

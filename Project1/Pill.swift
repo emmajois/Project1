@@ -18,28 +18,37 @@ struct PillShape: View {
     }
     
     var body: some View {
-        VStack{
+        VStack {
             ForEach(dynamicRange, id: \.self) { _ in
-                ZStack{
-                    Capsule(style: .continuous)
-                        .fill(shapeColor)
+                ZStack {
+                    Pill()
                         .opacity(shapeFill)
-                        .frame(width: 220, height: 100)
-                        .scaledToFit()
-                    Capsule(style: .continuous)
-                        .stroke(shapeColor, lineWidth:8)
-                        .frame(width: 220, height: 100)
-                        .scaledToFit()
+                    Pill().stroke(lineWidth: 6)
                 }
                 .aspectRatio(1/2, contentMode: .fit)
-                .padding()
             }
         }
-        //.rotationEffect(Angle(degrees: 90))
+        .foregroundStyle(Color(shapeColor))
         //.background(.pink)
     }
 }
 
+struct Pill: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let width = rect.size.width
+        let height = rect.size.height
+        path.move(to: CGPoint(x: 0.30915*width, y: 0.29432*height))
+        path.addLine(to: CGPoint(x: 0.74974*width, y: 0.29432*height))
+        path.addCurve(to: CGPoint(x: 0.87145*width, y: 0.40189*height), control1: CGPoint(x: 0.81717*width, y: 0.29432*height), control2: CGPoint(x: 0.87145*width, y: 0.3423*height))
+        path.addCurve(to: CGPoint(x: 0.74974*width, y: 0.50947*height), control1: CGPoint(x: 0.87145*width, y: 0.46149*height), control2: CGPoint(x: 0.81717*width, y: 0.50947*height))
+        path.addLine(to: CGPoint(x: 0.30915*width, y: 0.50947*height))
+        path.addCurve(to: CGPoint(x: 0.18744*width, y: 0.40189*height), control1: CGPoint(x: 0.24172*width, y: 0.50947*height), control2: CGPoint(x: 0.18744*width, y: 0.46149*height))
+        path.addCurve(to: CGPoint(x: 0.30915*width, y: 0.29432*height), control1: CGPoint(x: 0.18744*width, y: 0.3423*height), control2: CGPoint(x: 0.24172*width, y: 0.29432*height))
+        path.closeSubpath()
+        return path
+    }
+}
 
 #Preview {
     PillShape(shapeColor: .red, shapeFill: 0.25, iterator: 3)

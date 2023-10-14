@@ -18,17 +18,23 @@ struct SquiggleShape: View {
     }
     
     var body: some View {
-        VStack {
+        //GeometryReader { geometry in
+            HStack {
             ForEach(dynamicRange, id: \.self) { _ in
-                ZStack {
-                    Squiggle()
-                        .opacity(shapeFill)
-                    Squiggle().stroke(lineWidth: 8)
+                    ZStack {
+                        Squiggle()
+                            .opacity(shapeFill)
+//                            .frame(width: min(geometry.size.width * 0.5, UIScreen.main.bounds.size.width), height: min(geometry.size.height * 0.5, UIScreen.main.bounds.size.height))
+                        Squiggle()
+                            .stroke(lineWidth: 6)
+//                            .frame(width: min(geometry.size.width, UIScreen.main.bounds.size.width), height: min(geometry.size.height, UIScreen.main.bounds.size.height))
+                    }
+                    //.background(.pink)
                 }
-                .aspectRatio(1/2, contentMode: .fit)
+                .aspectRatio(2/3, contentMode: .fit)
             }
             .rotationEffect(Angle(degrees: 90))
-        }
+       //}
         .foregroundStyle(Color(shapeColor))
         //.background(.pink)
         .padding()

@@ -27,7 +27,7 @@ struct SetGameBrain<CardContent> {
         }
         cards.shuffle()
         
-        for (index,var card) in cards.prefix(1).enumerated() {
+        for (index,var card) in cards.prefix(12).enumerated() {
             card.isOnBoard = true
             cards[index] = card
         }
@@ -35,10 +35,8 @@ struct SetGameBrain<CardContent> {
     
     //MARK: - functions
     mutating func choose(card: Card){
-        print("You chose \(card)")
-        
-        if let index = cards.firstIndex(matching: card) {
-            cards[index].isSelected.toggle()
+        if let chosenIndex = cards.firstIndex(matching: card) {
+            cards[chosenIndex].isSelected.toggle()
         }
     }
     
@@ -79,8 +77,5 @@ struct SetGameBrain<CardContent> {
         var color: ColorEnum
         var fill: FillEnum
         var count: Int
-        
-        
-        
     }
 }
