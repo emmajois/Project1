@@ -29,7 +29,7 @@ struct SetGameBrain<CardContent> {
         var id: String {self.rawValue}
     }
 
-    init(cardContentFactory: (String, String, String, Int) -> CardContent) {
+    init() {
         cards = []
         
         for shapeVal in ShapeEnum.allCases {
@@ -39,8 +39,12 @@ struct SetGameBrain<CardContent> {
                         for fillVal in FillEnum.allCases {
                             let fillPassing: FillEnum = fillVal
                             for count in 0..<3 {
-                                let content = cardContentFactory(shapePassing.rawValue, colorPassing.rawValue, fillPassing.rawValue, count)
-                                cards.append(Card(content: content))
+                                var tempCard = Card(shape: shapePassing, color: colorPassing, fill: fillPassing, count: count+1 )
+                                tempCard.shape = shapePassing
+                                tempCard.color = colorPassing
+                                tempCard.fill = fillPassing
+                                tempCard.count = count
+                                cards.append(tempCard)
                     }
                 }
             }
@@ -59,7 +63,14 @@ struct SetGameBrain<CardContent> {
         var isSelected = false
         var isMatched = false
         var isOnBoard = true
-        var content: CardContent
+        
+        //var content: CardContent
+        
+        var shape: ShapeEnum
+        var color: ColorEnum
+        var fill: FillEnum
+        var count: Int
+        
         
         
     }
