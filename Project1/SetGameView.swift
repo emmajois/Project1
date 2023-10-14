@@ -8,17 +8,25 @@
 import SwiftUI
 
 struct SetGameView: View {
+    
+    let setGame: SetGame
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Testing Committing")
+        HStack {
+            ForEach(setGame.cards) {card in
+                ZStack {
+                        RoundedRectangle(cornerRadius: 10).fill(.white)
+                        RoundedRectangle(cornerRadius: 10).stroke()
+                        RoundedRectangle(cornerRadius: 10)
+                    
+                }
+                .foregroundStyle(.mint)
+            }
         }
         .padding()
     }
 }
 
 #Preview {
-    SetGameView()
+    SetGameView(setGame: SetGame())
 }

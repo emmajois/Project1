@@ -9,6 +9,7 @@ import Foundation
 
 struct SetGameBrain<CardContent> {
     var cards: Array<Card>
+    
     enum ShapeEnum: String, CaseIterable, Identifiable{
         case squiggle
         case diamond
@@ -28,30 +29,36 @@ struct SetGameBrain<CardContent> {
         var id: String {self.rawValue}
     }
 
-    init(){
+    init(cardContentFactory: (String, String, String, Int) -> CardContent) {
         cards = []
         
-        var contentData: [(ShapeEnum, ColorEnum, FillEnum, Int)] = []
-        
         for shapeVal in ShapeEnum.allCases {
+            let shapePassing: ShapeEnum = shapeVal
             for colorVal in ColorEnum.allCases {
+                let colorPassing: ColorEnum = colorVal
                         for fillVal in FillEnum.allCases {
+                            let fillPassing: FillEnum = fillVal
                             for count in 0..<3 {
-                                contentData.append((shapeVal, colorVal, fillVal, count))
+                                let content = cardContentFactory(shapePassing.rawValue, colorPassing.rawValue, fillPassing.rawValue, count)
+                                cards.append(Card(content: content))
                     }
                 }
             }
         }
+        cards.shuffle()
     }
     
     func choose(card: Card){
         print("You chose \(card)")
     }
     
-    struct Card {
+    //func startGame
+    struct Card: Identifiable {
         //MARK:- Properties
+        var id = UUID()
         var isSelected = false
         var isMatched = false
+        var isOnBoard = true
         var content: CardContent
         
         

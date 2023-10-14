@@ -10,7 +10,6 @@
 		FC8B6C192AD9D93E0027477A /* Squiggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8B6C182AD9D93E0027477A /* Squiggle.swift */; };
 		FC8B6C1B2AD9DC970027477A /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8B6C1A2AD9DC970027477A /* Diamond.swift */; };
 		FC8B6C1D2AD9E09F0027477A /* Pill.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8B6C1C2AD9E09F0027477A /* Pill.swift */; };
-		FC8B6C1F2AD9E8A60027477A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8B6C1E2AD9E8A60027477A /* CardView.swift */; };
 		FC8B6C212AD9E98A0027477A /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8B6C202AD9E98A0027477A /* SetGame.swift */; };
 		FC8B6C232AD9E9A50027477A /* SetGameBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8B6C222AD9E9A50027477A /* SetGameBrain.swift */; };
 		FCE2CF332AD9D58A00770B00 /* Project1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2CF322AD9D58A00770B00 /* Project1App.swift */; };
@@ -43,7 +42,6 @@
 		FC8B6C182AD9D93E0027477A /* Squiggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squiggle.swift; sourceTree = "<group>"; };
 		FC8B6C1A2AD9DC970027477A /* Diamond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diamond.swift; sourceTree = "<group>"; };
 		FC8B6C1C2AD9E09F0027477A /* Pill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pill.swift; sourceTree = "<group>"; };
-		FC8B6C1E2AD9E8A60027477A /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		FC8B6C202AD9E98A0027477A /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
 		FC8B6C222AD9E9A50027477A /* SetGameBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameBrain.swift; sourceTree = "<group>"; };
 		FCE2CF2F2AD9D58A00770B00 /* Project1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project1.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,7 +89,6 @@
 				FC8B6C182AD9D93E0027477A /* Squiggle.swift */,
 				FC8B6C1A2AD9DC970027477A /* Diamond.swift */,
 				FC8B6C1C2AD9E09F0027477A /* Pill.swift */,
-				FC8B6C1E2AD9E8A60027477A /* CardView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -303,7 +300,6 @@
 				FC8B6C192AD9D93E0027477A /* Squiggle.swift in Sources */,
 				FCE2CF352AD9D58A00770B00 /* SetGameView.swift in Sources */,
 				FC8B6C1D2AD9E09F0027477A /* Pill.swift in Sources */,
-				FC8B6C1F2AD9E8A60027477A /* CardView.swift in Sources */,
 				FCE2CF332AD9D58A00770B00 /* Project1App.swift in Sources */,
 				FC8B6C212AD9E98A0027477A /* SetGame.swift in Sources */,
 				FC8B6C232AD9E9A50027477A /* SetGameBrain.swift in Sources */,
