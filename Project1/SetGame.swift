@@ -9,9 +9,14 @@ import SwiftUI
 
 @Observable class SetGame {
     //MARK: - Properties
-    private var game = SetGameBrain<String>()
+    
+    private var game = createGame()
 
     //MARK: - Model access
+    static func createGame() -> SetGameBrain<String> {
+        SetGameBrain<String>()
+    }
+    
     var cards: Array<SetGameBrain<String>.Card> {
         game.cards
     }

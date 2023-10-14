@@ -19,11 +19,7 @@ struct SetGameBrain<CardContent> {
                         for fillVal in FillEnum.allCases {
                             let fillPassing: FillEnum = fillVal
                             for count in 0..<3 {
-                                var tempCard = Card(shape: shapePassing, color: colorPassing, fill: fillPassing, count: count+1 )
-                                tempCard.shape = shapePassing
-                                tempCard.color = colorPassing
-                                tempCard.fill = fillPassing
-                                tempCard.count = count
+                                let tempCard = Card(shape: shapePassing, color: colorPassing, fill: fillPassing, count: count+1 )
                                 cards.append(tempCard)
                     }
                 }
@@ -31,7 +27,7 @@ struct SetGameBrain<CardContent> {
         }
         cards.shuffle()
         
-        for (index,var card) in cards.prefix(4).enumerated() {
+        for (index,var card) in cards.prefix(1).enumerated() {
             card.isOnBoard = true
             cards[index] = card
         }

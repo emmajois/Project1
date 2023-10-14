@@ -8,20 +8,29 @@
 import SwiftUI
 
 struct SquiggleShape: View {
+    
+    let shapeColor: Color
+    let shapeFill: Double
+    let iterator: Int
+    
+    var dynamicRange: Range<Int>{
+        return 0..<iterator
+    }
+    
     var body: some View {
         VStack {
-            //ForEach(0..<3) { _ in
+            ForEach(dynamicRange, id: \.self) { _ in
                 ZStack {
                     Squiggle()
-                        .opacity(0.25)
+                        .opacity(shapeFill)
                     Squiggle().stroke(lineWidth: 8)
                 }
                 .aspectRatio(1/2, contentMode: .fit)
-            //}
+            }
             .rotationEffect(Angle(degrees: 90))
         }
-        .foregroundStyle(.purple)
-//        .background(.pink)
+        .foregroundStyle(Color(shapeColor))
+        //.background(.pink)
         .padding()
     }
 }
@@ -62,5 +71,5 @@ struct Squiggle: Shape {
 }
 
 #Preview {
-    SquiggleShape()
+    SquiggleShape(shapeColor: .red, shapeFill: 0.25, iterator:3)
 }

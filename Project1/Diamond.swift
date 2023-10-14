@@ -8,20 +8,29 @@
 import SwiftUI
 
 struct DiamondShape: View {
+    
+    let shapeColor: Color
+    let shapeFill: Double
+    let iterator: Int
+    
+    var dynamicRange: Range<Int>{
+        return 0..<iterator
+    }
+    
     var body: some View {
         VStack {
-   
+            ForEach(dynamicRange, id: \.self) { _ in
                 ZStack {
                     Diamond()
-                        .opacity(0.25)
+                        .opacity(shapeFill)
                     Diamond().stroke(lineWidth: 8)
                 }
                 .aspectRatio(1/2, contentMode: .fit)
-            
-            .rotationEffect(Angle(degrees: 180))
+            }
+            .rotationEffect(Angle(degrees: 90))
         }
-        .foregroundStyle(.purple)
-//        .background(.pink)
+        .foregroundStyle(shapeColor)
+        //.background(.pink)
         .padding()
     }
 }
@@ -41,5 +50,5 @@ struct Diamond: Shape {
 }
 
 #Preview {
-    DiamondShape()
+    DiamondShape(shapeColor: .red, shapeFill: 0.25, iterator: 3)
 }
