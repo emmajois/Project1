@@ -41,9 +41,9 @@ struct SetGameBrain<CardContent> {
     mutating func choose(card: Card){
         print("You chose \(card)")
         
-//        if let index = cards.firstIndex(matching: card) {
-//            cards[index].isSelected.toggle()
-//        }
+        if let index = cards.firstIndex(matching: card) {
+            cards[index].isSelected.toggle()
+        }
     }
     
 //    mutating func startGame() {
