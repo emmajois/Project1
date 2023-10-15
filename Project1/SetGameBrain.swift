@@ -34,6 +34,7 @@ struct SetGameBrain {
     }
     
     //MARK: - functions
+    
     mutating func choose(card: Card){
         if let chosenIndex = cards.firstIndex(matching: card) {
             if selectedCards.count < 3 {
@@ -77,6 +78,7 @@ struct SetGameBrain {
                         if cards[chosenIndex].isSelected {
                             selectedCards.append(cards[chosenIndex])
                         }
+                        threeNewCards()
                     }
                     //check for a winner
                     else if checkWinner() {
@@ -94,20 +96,22 @@ struct SetGameBrain {
                         }
                     }
                 }
+            }
         }
     }
-        
-    // when pulling out new cards from the deck, check if isOnBoard AND isMatched are both false
-//    mutating func startGame() {
-//        
-//    }
-//    func createCard() -> Card {
-//        return Card(shape: ShapeEnum.diamond,
-//                    color: ColorEnum.red,
-//                    fill: FillEnum.empty,
-//                    count: 1)
-//    }
     
+    mutating func threeNewCards() {
+        var count = 0
+        for (index, _) in cards.enumerated() {
+            if count < 3 {
+                if !cards[index].isOnBoard && !cards[index].isMatched {
+                    cards[index].isOnBoard = true
+                    count+=1
+                }
+            } else {
+                break
+            }
+        }
     }
     
     //MARK: - Properties

@@ -29,4 +29,8 @@ import SwiftUI
     func newGame() {
         game = SetGame.createGame()
     }
+    
+    func addMoreCards() {
+        game.threeNewCards()
+    }
 }

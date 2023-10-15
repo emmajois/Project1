@@ -22,14 +22,18 @@ struct SetGameView: View {
                             }
                     }
                 }
-                .padding()
                 Spacer()
                 HStack {
                     Button("New Game") {
                         setGame.newGame()
                     }
+                    Spacer()
+                    Button("3 More Cards") {
+                        setGame.addMoreCards()
+                    }
                 }
             }
+            .padding()
         }
     }
     
