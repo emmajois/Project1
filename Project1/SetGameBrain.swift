@@ -37,6 +37,7 @@ struct SetGameBrain {
     
     mutating func choose(card: Card){
         if let chosenIndex = cards.firstIndex(matching: card) {
+            //less than 3 are selected
             if selectedCards.count < 3 {
                 cards[chosenIndex].isSelected.toggle()
                 if cards[chosenIndex].isSelected {
@@ -48,6 +49,7 @@ struct SetGameBrain {
                 }
             }
             
+            //all 3 are selected
             if selectedCards.count == 3 {
                 //check if they already lost
                 if let removeIndex = cards.firstIndex(matching: selectedCards[0]){
@@ -65,7 +67,7 @@ struct SetGameBrain {
                             selectedCards.append(cards[chosenIndex])
                         }
                     }
-                        //check if they already won
+                    //check if they already won
                     else if cards[removeIndex].isMatched == true {
                         for winner in selectedCards {
                             if let winnerIndex = cards.firstIndex(matching: winner) {
@@ -101,6 +103,20 @@ struct SetGameBrain {
     }
     
     mutating func threeNewCards() {
+        
+        if selectedCards.count == 3 {
+            if let removeIndex = cards.firstIndex(matching: selectedCards[0]){
+                if cards[removeIndex].isMatched == true {
+                    for winner in selectedCards {
+                        if let winnerIndex = cards.firstIndex(matching: winner) {
+                            cards[winnerIndex].isOnBoard = false
+                        }
+                    }
+                    selectedCards = []
+                }
+            }
+        }
+        
         var count = 0
         for (index, _) in cards.enumerated() {
             if count < 3 {
