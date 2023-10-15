@@ -46,57 +46,25 @@ struct SetGameBrain<CardContent> {
                     }
                 }
             }
-            
             if selectedCards.count == 3 {
-                var shapeWinner = false
-                var colorWinner = false
-                var fillWinner = false
-                var countWinner = false
-                //check if they have a winning selection
-                if selectedCards[0].shape.rawValue ==  selectedCards[1].shape.rawValue && selectedCards[0].shape.rawValue == selectedCards[2].shape.rawValue {
-                    print("shape winner")
-                    shapeWinner = true
+                if checkWinner() {
+                    for winner in selectedCards {
+                        if let winnerIndex = cards.firstIndex(matching: winner) {
+                            cards[winnerIndex].isMatched = true
+                        }
+                    }
                 }
-                else if selectedCards[0].shape.rawValue !=  selectedCards[1].shape.rawValue && selectedCards[0].shape.rawValue != selectedCards[2].shape.rawValue && selectedCards[1].shape.rawValue !=  selectedCards[2].shape.rawValue {
-                    print("Unique shape winner")
-                    shapeWinner = true
+                else {
+                    for loser in selectedCards {
+                        if let loserIndex = cards.firstIndex(matching: loser) {
+                            cards[loserIndex].isLoser = true
+                        }
+                    }
                 }
-                
-                if selectedCards[0].color.rawValue ==  selectedCards[1].color.rawValue && selectedCards[0].color.rawValue == selectedCards[2].color.rawValue {
-                    print("color winner")
-                    colorWinner = true
-                }
-                else if selectedCards[0].color.rawValue !=  selectedCards[1].color.rawValue && selectedCards[0].color.rawValue != selectedCards[2].color.rawValue && selectedCards[1].color.rawValue !=  selectedCards[2].color.rawValue {
-                    print("Unique color winner")
-                    colorWinner = true
-                }
-                
-                if selectedCards[0].fill.rawValue ==  selectedCards[1].fill.rawValue && selectedCards[0].fill.rawValue == selectedCards[2].fill.rawValue {
-                    print("fill winner")
-                    fillWinner = true
-                }
-                else if selectedCards[0].fill.rawValue !=  selectedCards[1].fill.rawValue && selectedCards[0].fill.rawValue != selectedCards[2].fill.rawValue && selectedCards[1].fill.rawValue !=  selectedCards[2].fill.rawValue {
-                    print("Unique fill winner")
-                    fillWinner = true
-                }
-                
-                if selectedCards[0].count ==  selectedCards[1].count && selectedCards[0].count == selectedCards[2].count {
-                    print("count winner")
-                    countWinner = true
-                }
-                else if selectedCards[0].count !=  selectedCards[1].count && selectedCards[0].count != selectedCards[2].count && selectedCards[1].count !=  selectedCards[2].count {
-                    print("Unique count winner")
-                    countWinner = true
-                }
-                if shapeWinner && colorWinner && fillWinner && countWinner {
-                    print ("You WIN TOTALLY")
-                } else {
-                    print ("YOU LOSE")
-                }
-            }
         }
     }
-    
+        
+    // when pulling out new cards from the deck, check if isOnBoard AND isMatched are both false
 //    mutating func startGame() {
 //        
 //    }
@@ -106,6 +74,9 @@ struct SetGameBrain<CardContent> {
 //                    fill: FillEnum.empty,
 //                    count: 1)
 //    }
+    
+    }
+    
     //MARK: - Properties
     var cards: Array<Card>
     var selectedCards: Array<Card> = []
@@ -135,10 +106,67 @@ struct SetGameBrain<CardContent> {
         var isSelected = false
         var isMatched = false
         var isOnBoard = false
+        var isLoser = false
         
         var shape: ShapeEnum
         var color: ColorEnum
         var fill: FillEnum
         var count: Int
+    }
+    
+    //MARK: - Private Helper Functions
+    
+    private func checkWinner()-> Bool{
+        var shapeWinner = false
+        var colorWinner = false
+        var fillWinner = false
+        var countWinner = false
+
+        //check if they have a winning selection
+        if selectedCards[0].shape.rawValue ==  selectedCards[1].shape.rawValue && 
+            selectedCards[0].shape.rawValue == selectedCards[2].shape.rawValue {
+            shapeWinner = true
+        }
+        else if selectedCards[0].shape.rawValue !=  selectedCards[1].shape.rawValue && 
+                    selectedCards[0].shape.rawValue != selectedCards[2].shape.rawValue &&
+                    selectedCards[1].shape.rawValue !=  selectedCards[2].shape.rawValue {
+            shapeWinner = true
+        }
+        
+        if selectedCards[0].color.rawValue ==  selectedCards[1].color.rawValue && 
+            selectedCards[0].color.rawValue == selectedCards[2].color.rawValue {
+            colorWinner = true
+        }
+        else if selectedCards[0].color.rawValue !=  selectedCards[1].color.rawValue && 
+                    selectedCards[0].color.rawValue != selectedCards[2].color.rawValue &&
+                    selectedCards[1].color.rawValue !=  selectedCards[2].color.rawValue {
+            colorWinner = true
+        }
+        
+        if selectedCards[0].fill.rawValue ==  selectedCards[1].fill.rawValue &&
+            selectedCards[0].fill.rawValue == selectedCards[2].fill.rawValue {
+            fillWinner = true
+        }
+        else if selectedCards[0].fill.rawValue !=  selectedCards[1].fill.rawValue && 
+                    selectedCards[0].fill.rawValue != selectedCards[2].fill.rawValue &&
+                    selectedCards[1].fill.rawValue !=  selectedCards[2].fill.rawValue {
+            fillWinner = true
+        }
+        
+        if selectedCards[0].count ==  selectedCards[1].count &&
+            selectedCards[0].count == selectedCards[2].count {
+            countWinner = true
+        }
+        else if selectedCards[0].count !=  selectedCards[1].count && 
+                    selectedCards[0].count != selectedCards[2].count &&
+                    selectedCards[1].count !=  selectedCards[2].count {
+            countWinner = true
+        }
+        if shapeWinner && colorWinner && fillWinner && countWinner {
+            return true
+            
+        } else {
+            return false
+        }
     }
 }

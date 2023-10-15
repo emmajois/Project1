@@ -53,6 +53,12 @@ struct CardView: View {
                     if card.isSelected {
                         RoundedRectangle(cornerRadius: Card.cornerRadius).stroke(Color.yellow, lineWidth: 5)
                     }
+                    if card.isMatched {
+                        RoundedRectangle(cornerRadius: Card.cornerRadius).stroke(Color.green, lineWidth: 5)
+                    }
+                    if card.isLoser {
+                        RoundedRectangle(cornerRadius: Card.cornerRadius).stroke(Color.red, lineWidth: 5)
+                    }
                 }
                 .foregroundStyle(.mint)
             }
