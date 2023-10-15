@@ -30,11 +30,11 @@ struct CardView: View {
                         }
                         if card.isSelected {
                             RoundedRectangle(cornerRadius: Card.cornerRadius).stroke(Color.yellow, lineWidth: 5)
-                        }
+                        } 
                         if card.isMatched {
                             RoundedRectangle(cornerRadius: Card.cornerRadius).stroke(Color.green, lineWidth: 5)
                         }
-                        if card.isLoser {
+                        if card.isLoser && card.isSelected {
                             RoundedRectangle(cornerRadius: Card.cornerRadius).stroke(Color.red, lineWidth: 5)
                         }
                     }
@@ -75,5 +75,6 @@ struct CardView: View {
     }
 
 #Preview {
-    CardView(card: SetGameBrain.Card(isOnBoard: true, shape: .squiggle, color: .red, fill: .full, count: 3))
+    CardView(card: SetGameBrain.Card(isOnBoard: true, shape: .squiggle, color: .red, fill: .full, count: 2))
+        .padding(50)
 }

@@ -25,4 +25,8 @@ import SwiftUI
     func choose(_ card: SetGameBrain.Card) {
         game.choose(card: card)
     }
+    
+    func newGame() {
+        game = SetGame.createGame()
+    }
 }

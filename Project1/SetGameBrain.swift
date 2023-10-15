@@ -46,18 +46,51 @@ struct SetGameBrain {
                     }
                 }
             }
+            
             if selectedCards.count == 3 {
-                if checkWinner() {
-                    for winner in selectedCards {
-                        if let winnerIndex = cards.firstIndex(matching: winner) {
-                            cards[winnerIndex].isMatched = true
+                //check if they already lost
+                if let removeIndex = cards.firstIndex(matching: selectedCards[0]){
+                    if cards[removeIndex].isLoser == true {
+                        for loser in selectedCards {
+                            if let loserIndex = cards.firstIndex(matching: loser) {
+                                cards[loserIndex].isSelected = false
+                                cards[loserIndex].isLoser = false
+                            }
+                        }
+                        selectedCards = []
+                        //select the card and append it to the cleared selected cards array
+                        cards[chosenIndex].isSelected.toggle()
+                        if cards[chosenIndex].isSelected {
+                            selectedCards.append(cards[chosenIndex])
                         }
                     }
-                }
-                else {
-                    for loser in selectedCards {
-                        if let loserIndex = cards.firstIndex(matching: loser) {
-                            cards[loserIndex].isLoser = true
+                        //check if they already won
+                    else if cards[removeIndex].isMatched == true {
+                        for winner in selectedCards {
+                            if let winnerIndex = cards.firstIndex(matching: winner) {
+                                cards[winnerIndex].isOnBoard = false
+                            }
+                        }
+                        selectedCards = []
+                        //select the card and append it to the cleared selected cards array
+                        cards[chosenIndex].isSelected.toggle()
+                        if cards[chosenIndex].isSelected {
+                            selectedCards.append(cards[chosenIndex])
+                        }
+                    }
+                    //check for a winner
+                    else if checkWinner() {
+                        for winner in selectedCards {
+                            if let winnerIndex = cards.firstIndex(matching: winner) {
+                                cards[winnerIndex].isMatched = true
+                            }
+                        }
+                    } //they must have lost
+                    else {
+                        for loser in selectedCards {
+                            if let loserIndex = cards.firstIndex(matching: loser) {
+                                cards[loserIndex].isLoser = true
+                            }
                         }
                     }
                 }

@@ -13,15 +13,23 @@ struct SetGameView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            LazyVGrid (columns: columns(for: geometry.size)) {
-                ForEach(setGame.cards) {card in
-                    CardView(card: card)
-                        .onTapGesture{
-                            setGame.choose(card)
-                        }
+            VStack{
+                LazyVGrid (columns: columns(for: geometry.size)) {
+                    ForEach(setGame.cards) {card in
+                        CardView(card: card)
+                            .onTapGesture{
+                                setGame.choose(card)
+                            }
+                    }
+                }
+                .padding()
+                Spacer()
+                HStack {
+                    Button("New Game") {
+                        setGame.newGame()
+                    }
                 }
             }
-            .padding()
         }
     }
     
