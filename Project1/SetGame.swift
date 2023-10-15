@@ -13,16 +13,16 @@ import SwiftUI
     private var game = createGame()
 
     //MARK: - Model access
-    static func createGame() -> SetGameBrain<String> {
-        SetGameBrain<String>()
+    static func createGame() -> SetGameBrain {
+        SetGameBrain()
     }
     
-    var cards: Array<SetGameBrain<String>.Card> {
+    var cards: Array<SetGameBrain.Card> {
         game.cards
     }
     
     //MARK: - User Intents
-    func choose(_ card: SetGameBrain<String>.Card) {
+    func choose(_ card: SetGameBrain.Card) {
         game.choose(card: card)
     }
 }

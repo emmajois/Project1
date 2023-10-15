@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SetGameBrain<CardContent> {
+struct SetGameBrain {
     //MARK: - Initiation
     init() {
         cards = []
