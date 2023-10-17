@@ -12,32 +12,28 @@ struct SquiggleShape: View {
     let shapeColor: Color
     let shapeFill: Double
     let iterator: Int
+    let widthPassed: CGFloat
+    let heightPassed: CGFloat
+    let shrinkValue = 0.5
     
     var dynamicRange: Range<Int>{
         return 0..<iterator
     }
     
     var body: some View {
-        //GeometryReader { geometry in
-            HStack {
-            ForEach(dynamicRange, id: \.self) { _ in
+            VStack {
+                    ForEach(dynamicRange, id: \.self) { _ in
                     ZStack {
                         Squiggle()
                             .opacity(shapeFill)
-//                            .frame(width: min(geometry.size.width * 0.5, UIScreen.main.bounds.size.width), height: min(geometry.size.height * 0.5, UIScreen.main.bounds.size.height))
+                            
                         Squiggle()
                             .stroke(lineWidth: 6)
-//                            .frame(width: min(geometry.size.width, UIScreen.main.bounds.size.width), height: min(geometry.size.height, UIScreen.main.bounds.size.height))
                     }
-                    //.background(.pink)
                 }
-                .aspectRatio(2/3, contentMode: .fit)
             }
-            .rotationEffect(Angle(degrees: 90))
-       //}
+        .frame(width:widthPassed*shrinkValue, height:heightPassed*shrinkValue)
         .foregroundStyle(Color(shapeColor))
-        //.background(.pink)
-        .padding()
     }
 }
 
@@ -63,19 +59,17 @@ struct Squiggle: Shape {
 
         path = path.offsetBy(
             dx: rect.minX - path.boundingRect.minX,
-            dy: rect.minY - path.boundingRect.minY
+            dy: ((rect.maxY - rect.minY)/2.0) + ((path.boundingRect.maxY - path.boundingRect.minY)/2.0)
         )
 
-        let scale = rect.height / path.boundingRect.width
+        let scale = rect.width / path.boundingRect.width
         let transform = CGAffineTransform(scaleX: scale, y: scale)
-            .rotated(by: Double.pi / 2)
-
+        
         path = path.applying(transform)
 
-        return path.offsetBy(dx: rect.width, dy: 0)
-    }
+        return path
+        }
 }
-
 #Preview {
-    SquiggleShape(shapeColor: .red, shapeFill: 0.25, iterator:3)
+    SquiggleShape(shapeColor: .green, shapeFill: 0.25, iterator:3, widthPassed: 400.0, heightPassed: 600.0)
 }

@@ -26,7 +26,9 @@ struct CardView: View {
                                               iterator: card.count)
                         case .squiggle: SquiggleShape(shapeColor: getColor(),
                                                       shapeFill: getFill(),
-                                                      iterator: card.count)
+                                                      iterator: card.count,
+                                                      widthPassed: geometry.size.width,
+                                                      heightPassed: geometry.size.height)
                         }
                         if card.isSelected {
                             RoundedRectangle(cornerRadius: Card.cornerRadius).stroke(Color.yellow, lineWidth: 5)
@@ -40,6 +42,7 @@ struct CardView: View {
                     }
                     .foregroundStyle(.mint)
                 }
+                //.background(.pink)
                 .aspectRatio(Card.aspectRatio, contentMode: .fit)
             }
         }
@@ -75,6 +78,6 @@ struct CardView: View {
     }
 
 #Preview {
-    CardView(card: SetGameBrain.Card(isOnBoard: true, shape: .squiggle, color: .red, fill: .full, count: 2))
+    CardView(card: SetGameBrain.Card(isOnBoard: true, shape: .squiggle, color: .red, fill: .full, count: 3))
         .padding(50)
 }
