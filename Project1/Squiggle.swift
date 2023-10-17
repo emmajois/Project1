@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SquiggleShape: View {
+struct SquiggleShapeView: View {
     
     let shapeColor: Color
     let shapeFill: Double
@@ -33,11 +33,12 @@ struct SquiggleShape: View {
                             //.frame(width:widthPassed*shrinkValue, height:heightPassed*shrinkValue)
                            
                     }
+                    .background(.blue)
                 }
+                    .background(.pink)
             }
         
         .foregroundStyle(Color(shapeColor))
-        .background(.pink)
         .frame(width:widthPassed*shrinkValue, height:heightPassed*shrinkValue)
     }
 }
@@ -64,7 +65,7 @@ struct Squiggle: Shape {
 
         path = path.offsetBy(
             dx: rect.minX - path.boundingRect.minX,
-            dy: ((rect.maxY - rect.minY)/2.0) + ((path.boundingRect.maxY - path.boundingRect.minY)/2.0)
+            dy: ((rect.maxY - rect.minY)/2.0) + ((path.boundingRect.maxY - path.boundingRect.minY)/2.0) - rect.height*4
         )
 
         let scale = rect.width / path.boundingRect.width
@@ -76,5 +77,5 @@ struct Squiggle: Shape {
         }
 }
 #Preview {
-    SquiggleShape(shapeColor: .green, shapeFill: 0.25, iterator:3, widthPassed: 400.0, heightPassed: 600.0)
+    SquiggleShapeView(shapeColor: .green, shapeFill: 0.25, iterator:1, widthPassed: 400.0, heightPassed: 600.0)
 }

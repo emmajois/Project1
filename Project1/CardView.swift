@@ -24,7 +24,7 @@ struct CardView: View {
                         case .pill: PillShape(shapeColor: getColor(),
                                               shapeFill: getFill(),
                                               iterator: card.count)
-                        case .squiggle: SquiggleShape(shapeColor: getColor(),
+                        case .squiggle: SquiggleShapeView(shapeColor: getColor(),
                                                       shapeFill: getFill(),
                                                       iterator: card.count,
                                                       widthPassed: geometry.size.width,
