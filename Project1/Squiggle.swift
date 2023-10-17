@@ -26,14 +26,19 @@ struct SquiggleShape: View {
                     ZStack {
                         Squiggle()
                             .opacity(shapeFill)
+                            //.frame(width:widthPassed*shrinkValue, height:heightPassed*shrinkValue)
                             
                         Squiggle()
                             .stroke(lineWidth: 6)
+                            //.frame(width:widthPassed*shrinkValue, height:heightPassed*shrinkValue)
+                           
                     }
                 }
             }
-        .frame(width:widthPassed*shrinkValue, height:heightPassed*shrinkValue)
+        
         .foregroundStyle(Color(shapeColor))
+        .background(.pink)
+        .frame(width:widthPassed*shrinkValue, height:heightPassed*shrinkValue)
     }
 }
 

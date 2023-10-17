@@ -78,6 +78,6 @@ struct CardView: View {
     }
 
 #Preview {
-    CardView(card: SetGameBrain.Card(isOnBoard: true, shape: .squiggle, color: .red, fill: .full, count: 3))
+    CardView(card: SetGameBrain.Card(isOnBoard: true, shape: .squiggle, color: .green, fill: .full, count: 3))
         .padding(50)
 }
