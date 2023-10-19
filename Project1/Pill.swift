@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PillShape: View {
+struct PillShapeView: View {
     
     let shapeColor: Color
     let shapeFill: Double
@@ -51,5 +51,5 @@ struct Pill: Shape {
 }
 
 #Preview {
-    PillShape(shapeColor: .red, shapeFill: 0.25, iterator: 3)
+    PillShapeView(shapeColor: .red, shapeFill: 0.25, iterator: 3)
 }

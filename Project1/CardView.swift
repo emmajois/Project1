@@ -18,10 +18,10 @@ struct CardView: View {
                         RoundedRectangle(cornerRadius: Card.cornerRadius).fill(.white)
                         RoundedRectangle(cornerRadius: Card.cornerRadius).stroke()
                         switch card.shape {
-                        case .diamond : DiamondShape(shapeColor: getColor(),
+                        case .diamond : DiamondShapeView(shapeColor: getColor(),
                                                      shapeFill: getFill(),
                                                      iterator: card.count)
-                        case .pill: PillShape(shapeColor: getColor(),
+                        case .pill: PillShapeView(shapeColor: getColor(),
                                               shapeFill: getFill(),
                                               iterator: card.count)
                         case .squiggle: SquiggleShapeView(shapeColor: getColor(),
@@ -78,6 +78,6 @@ struct CardView: View {
     }
 
 #Preview {
-    CardView(card: SetGameBrain.Card(isOnBoard: true, shape: .squiggle, color: .green, fill: .full, count: 3))
+    CardView(card: SetGameBrain.Card(isOnBoard: true, shape: .squiggle, color: .green, fill: .full, count: 1))
         .padding(50)
 }

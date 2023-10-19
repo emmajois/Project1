@@ -24,18 +24,18 @@ struct SquiggleShapeView: View {
             VStack {
                     ForEach(dynamicRange, id: \.self) { _ in
                     ZStack {
-                        Squiggle()
+                        Squiggle(Iterator: iterator)
                             .opacity(shapeFill)
                             //.frame(width:widthPassed*shrinkValue, height:heightPassed*shrinkValue)
                             
-                        Squiggle()
+                        Squiggle(Iterator: iterator)
                             .stroke(lineWidth: 6)
                             //.frame(width:widthPassed*shrinkValue, height:heightPassed*shrinkValue)
                            
                     }
-                    .background(.blue)
+                    //.background(.blue)
                 }
-                    .background(.pink)
+                    //.background(.pink)
             }
         
         .foregroundStyle(Color(shapeColor))
@@ -53,8 +53,19 @@ let segments = [
 ]
 
 struct Squiggle: Shape {
+    let Iterator: Int;
+    
     func path(in rect: CGRect) -> Path {
         var path = Path()
+        var multiplier : Double {
+            if Iterator == 2 {
+                return 2.0
+            } else if Iterator == 3  {
+                return 4.2
+            } else {
+                return 0.0
+            }
+        }
 
         guard let lastSegment = segments.last else {
             return path
@@ -65,7 +76,7 @@ struct Squiggle: Shape {
 
         path = path.offsetBy(
             dx: rect.minX - path.boundingRect.minX,
-            dy: ((rect.maxY - rect.minY)/2.0) + ((path.boundingRect.maxY - path.boundingRect.minY)/2.0) - rect.height*4
+            dy: ((rect.maxY - rect.minY)/2.0) + ((path.boundingRect.maxY - path.boundingRect.minY)/2.0) - rect.height*multiplier
         )
 
         let scale = rect.width / path.boundingRect.width

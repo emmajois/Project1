@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DiamondShape: View {
+struct DiamondShapeView: View {
     
     let shapeColor: Color
     let shapeFill: Double
@@ -50,5 +50,5 @@ struct Diamond: Shape {
 }
 
 #Preview {
-    DiamondShape(shapeColor: .red, shapeFill: 0.25, iterator: 3)
+    DiamondShapeView(shapeColor: .red, shapeFill: 0.25, iterator: 3)
 }
