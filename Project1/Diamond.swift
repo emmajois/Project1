@@ -12,6 +12,9 @@ struct DiamondShapeView: View {
     let shapeColor: Color
     let shapeFill: Double
     let iterator: Int
+    let widthPassed: CGFloat
+    let heightPassed: CGFloat
+    let shrinkValue = 0.5
     
     var dynamicRange: Range<Int>{
         return 0..<iterator
@@ -23,15 +26,17 @@ struct DiamondShapeView: View {
                 ZStack {
                     Diamond()
                         .opacity(shapeFill)
-                    Diamond().stroke(lineWidth: 6)
+                    Diamond()
+                        .stroke(lineWidth: 6)
                 }
-                .aspectRatio(1/2, contentMode: .fit)
+                //.aspectRatio(1/2, contentMode: .fit)
             }
-            .rotationEffect(Angle(degrees: 90))
+            //.rotationEffect(Angle(degrees: 90))
         }
         .foregroundStyle(shapeColor)
+        .frame(width:widthPassed*shrinkValue, height:heightPassed*shrinkValue)
         //.background(.pink)
-        .padding()
+        //.padding()
     }
 }
 
@@ -50,5 +55,5 @@ struct Diamond: Shape {
 }
 
 #Preview {
-    DiamondShapeView(shapeColor: .red, shapeFill: 0.25, iterator: 3)
+    DiamondShapeView(shapeColor: .red, shapeFill: 0.25, iterator: 3, widthPassed: 400.0, heightPassed: 600.0)
 }

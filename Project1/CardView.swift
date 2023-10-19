@@ -20,7 +20,9 @@ struct CardView: View {
                         switch card.shape {
                         case .diamond : DiamondShapeView(shapeColor: getColor(),
                                                      shapeFill: getFill(),
-                                                     iterator: card.count)
+                                                     iterator: card.count,
+                                                         widthPassed: geometry.size.width,
+                                                         heightPassed: geometry.size.height)
                         case .pill: PillShapeView(shapeColor: getColor(),
                                               shapeFill: getFill(),
                                               iterator: card.count)
@@ -42,7 +44,6 @@ struct CardView: View {
                     }
                     .foregroundStyle(.mint)
                 }
-                //.background(.pink)
                 .aspectRatio(Card.aspectRatio, contentMode: .fit)
             }
         }
@@ -78,6 +79,6 @@ struct CardView: View {
     }
 
 #Preview {
-    CardView(card: SetGameBrain.Card(isOnBoard: true, shape: .squiggle, color: .green, fill: .full, count: 1))
+    CardView(card: SetGameBrain.Card(isOnBoard: true, shape: .diamond, color: .green, fill: .full, count: 1))
         .padding(50)
 }
