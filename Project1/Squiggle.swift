@@ -33,7 +33,7 @@ struct SquiggleShapeView: View {
                             //.frame(width:widthPassed*shrinkValue, height:heightPassed*shrinkValue)
                            
                     }
-                    //.background(.blue)
+                    .background(.blue)
                 }
                     //.background(.pink)
             }
@@ -57,15 +57,16 @@ struct Squiggle: Shape {
     
     func path(in rect: CGRect) -> Path {
         var path = Path()
-        var multiplier : Double {
-            if Iterator == 2 {
-                return 2.0
-            } else if Iterator == 3  {
-                return 4.2
-            } else {
-                return 0.0
-            }
-        }
+        print(rect)
+//        var multiplier : Double {
+//            if Iterator == 2 {
+//                return 2.0
+//            } else if Iterator == 3  {
+//                return 4.2
+//            } else {
+//                return 0.0
+//            }
+//        }
 
         guard let lastSegment = segments.last else {
             return path
@@ -74,19 +75,22 @@ struct Squiggle: Shape {
         path.move(to: lastSegment.0)
         segments.forEach { path.addCurve(to: $0, control1: $1, control2: $2) }
 
+        print(rect.midY)
         path = path.offsetBy(
             dx: rect.minX - path.boundingRect.minX,
-            dy: ((rect.maxY - rect.minY)/2.0) + ((path.boundingRect.maxY - path.boundingRect.minY)/2.0) - rect.height*multiplier
+            dy: rect.minY - path.boundingRect.minY - path.boundingRect.midY
+                //((rect.maxY - rect.minY)/2.0) + ((path.boundingRect.maxY - path.boundingRect.minY)/2.0) - rect.height*multiplier
         )
 
         let scale = rect.width / path.boundingRect.width
         let transform = CGAffineTransform(scaleX: scale, y: scale)
         
         path = path.applying(transform)
-
+        
+        path = path.offsetBy(dx: 0, dy: rect.midY - path.boundingRect.midY)
         return path
         }
 }
 #Preview {
-    SquiggleShapeView(shapeColor: .green, shapeFill: 0.25, iterator:1, widthPassed: 400.0, heightPassed: 600.0)
+    SquiggleShapeView(shapeColor: .green, shapeFill: 0.25, iterator:3, widthPassed: 400.0, heightPassed: 600.0)
 }
