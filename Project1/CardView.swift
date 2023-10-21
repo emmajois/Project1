@@ -21,11 +21,13 @@ struct CardView: View {
                         case .diamond : DiamondShapeView(shapeColor: getColor(),
                                                      shapeFill: getFill(),
                                                      iterator: card.count,
-                                                         widthPassed: geometry.size.width,
-                                                         heightPassed: geometry.size.height)
+                                                     widthPassed: geometry.size.width,
+                                                     heightPassed: geometry.size.height)
                         case .pill: PillShapeView(shapeColor: getColor(),
                                               shapeFill: getFill(),
-                                              iterator: card.count)
+                                              iterator: card.count,
+                                              widthPassed: geometry.size.width,
+                                              heightPassed:geometry.size.height)
                         case .squiggle: SquiggleShapeView(shapeColor: getColor(),
                                                       shapeFill: getFill(),
                                                       iterator: card.count,

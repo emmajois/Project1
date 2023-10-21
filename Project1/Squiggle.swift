@@ -33,7 +33,6 @@ struct SquiggleShapeView: View {
                     }
                 }
             }
-        
         .foregroundStyle(Color(shapeColor))
         .frame(width:widthPassed*shrinkValue, height:heightPassed*shrinkValue)
     }
@@ -78,5 +77,5 @@ struct Squiggle: Shape {
     }
 }
 #Preview {
-    SquiggleShapeView(shapeColor: .green, shapeFill: 0.25, iterator:3, widthPassed: 400.0, heightPassed: 600.0)
+    SquiggleShapeView(shapeColor: .green, shapeFill: 0.25, iterator:1, widthPassed: 400.0, heightPassed: 600.0)
 }

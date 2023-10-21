@@ -35,8 +35,8 @@ struct DiamondShapeView: View {
         }
         .foregroundStyle(shapeColor)
         .frame(width:widthPassed*shrinkValue, height:heightPassed*shrinkValue)
-        //.background(.pink)
-        //.padding()
+        .background(.pink)
+        .padding()
     }
 }
 
@@ -55,5 +55,18 @@ struct Diamond: Shape {
 }
 
 #Preview {
-    DiamondShapeView(shapeColor: .red, shapeFill: 0.25, iterator: 3, widthPassed: 400.0, heightPassed: 600.0)
+    DiamondShapeView(shapeColor: .green, shapeFill: 0.25, iterator: 1, widthPassed: 400.0, heightPassed: 600.0)
 }
+//path = path.offsetBy(
+//    dx: rect.minX - path.boundingRect.minX,
+//    dy: rect.minY - path.boundingRect.minY - path.boundingRect.midY
+//    )
+//
+//let scale = rect.width / path.boundingRect.width
+//let transform = CGAffineTransform(scaleX: scale, y: scale)
+//
+//path = path.applying(transform)
+//
+//path = path.offsetBy(
+//    dx: 0,
+//    dy: rect.midY - path.boundingRect.midY)
