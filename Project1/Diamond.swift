@@ -27,7 +27,7 @@ struct DiamondShapeView: View {
                     Diamond()
                         .opacity(shapeFill)
                     Diamond()
-                        .stroke(lineWidth: 6)
+                        .stroke(lineWidth: 3)
                 }
                 //.aspectRatio(1/2, contentMode: .fit)
             }

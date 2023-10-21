@@ -14,8 +14,6 @@ struct SquiggleShapeView: View {
     let iterator: Int
     let widthPassed: CGFloat
     let heightPassed: CGFloat
-    //add this to constants
-    let shrinkValue = 0.5
     
     var dynamicRange: Range<Int>{
         return 0..<iterator
@@ -29,12 +27,17 @@ struct SquiggleShapeView: View {
                             .opacity(shapeFill)
                         
                         Squiggle(Iterator: iterator)
-                            .stroke(lineWidth: 6)
+                            .stroke(lineWidth: Constants.lineWidth)
                     }
                 }
             }
         .foregroundStyle(Color(shapeColor))
-        .frame(width:widthPassed*shrinkValue, height:heightPassed*shrinkValue)
+        .frame(width:widthPassed*Constants.shrinkValue, height:heightPassed*Constants.shrinkValue)
+    }
+    //MARK: - Drawing Constants
+    private struct Constants {
+        static let shrinkValue = 0.5
+        static let lineWidth = 3.0
     }
 }
 
