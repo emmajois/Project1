@@ -14,7 +14,6 @@ struct DiamondShapeView: View {
     let iterator: Int
     let widthPassed: CGFloat
     let heightPassed: CGFloat
-    let shrinkValue = 0.5
     
     var dynamicRange: Range<Int>{
         return 0..<iterator
@@ -27,46 +26,56 @@ struct DiamondShapeView: View {
                     Diamond()
                         .opacity(shapeFill)
                     Diamond()
-                        .stroke(lineWidth: 3)
+                        .stroke(lineWidth: Constants.lineWidth)
                 }
-                //.aspectRatio(1/2, contentMode: .fit)
             }
-            //.rotationEffect(Angle(degrees: 90))
         }
         .foregroundStyle(shapeColor)
-        .frame(width:widthPassed*shrinkValue, height:heightPassed*shrinkValue)
-        .background(.pink)
-        .padding()
+        .frame(width:widthPassed*Constants.shrinkValue, height:heightPassed*Constants.shrinkValue)
+    }
+    //MARK: - Drawing Constants
+    private struct Constants {
+        static let shrinkValue = 0.5
+        static let lineWidth = 3.0
     }
 }
 
 struct Diamond: Shape {
     func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let width = Constants.drawingWidth
+        let height = Constants.drawingHeight
         
-        Path() { p in
-            p.move(to: CGPoint(x: rect.midX, y: rect.minY))
-            p.addLine(to: CGPoint(x: rect.midX, y: rect.minY))
-            p.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
-            p.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
-            p.addLine(to: CGPoint(x: rect.minX, y: rect.midY))
-            p.closeSubpath()
-        }
+        path.move(to: CGPoint(x: 0.02*width, y: 0.04167*height))
+        path.addLine(to: CGPoint(x: 0.04167*width, y: 0.01167*height))
+        path.addLine(to: CGPoint(x: 0.06333*width, y: 0.04167*height))
+        path.addLine(to: CGPoint(x: 0.04167*width, y: 0.07167*height))
+        path.closeSubpath()
+        
+        path = path.offsetBy(
+            dx: rect.minX - path.boundingRect.minX,
+            dy: rect.minY - path.boundingRect.minY - path.boundingRect.midY
+            )
+            
+        let scale = rect.width / path.boundingRect.width
+        let transform = CGAffineTransform(scaleX: scale, y: scale)
+            
+        path = path.applying(transform)
+
+        path = path.offsetBy(
+                dx: 0,
+                dy: rect.midY - path.boundingRect.midY)
+
+        return path
+       }
+    
+    //MARK: - Drawing Constants
+    private struct Constants {
+        static let drawingWidth = 3.0
+        static let drawingHeight = 1.0
     }
 }
 
 #Preview {
-    DiamondShapeView(shapeColor: .green, shapeFill: 0.25, iterator: 1, widthPassed: 400.0, heightPassed: 600.0)
+    DiamondShapeView(shapeColor: .green, shapeFill: 0.25, iterator: 3, widthPassed: 400.0, heightPassed: 600.0)
 }
-//path = path.offsetBy(
-//    dx: rect.minX - path.boundingRect.minX,
-//    dy: rect.minY - path.boundingRect.minY - path.boundingRect.midY
-//    )
-//
-//let scale = rect.width / path.boundingRect.width
-//let transform = CGAffineTransform(scaleX: scale, y: scale)
-//
-//path = path.applying(transform)
-//
-//path = path.offsetBy(
-//    dx: 0,
-//    dy: rect.midY - path.boundingRect.midY)
