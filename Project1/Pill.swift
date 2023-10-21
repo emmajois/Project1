@@ -42,8 +42,10 @@ struct PillShapeView: View {
 struct Pill: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
-        let width = 400.0
-        let height = 600.0
+        
+        let width = Constants.drawingWidth
+        let height = Constants.drawingHeight
+        
         path.move(to: CGPoint(x: 0.30915*width, y: 0.29432*height))
         path.addLine(to: CGPoint(x: 0.74974*width, y: 0.29432*height))
         path.addCurve(to: CGPoint(x: 0.87145*width, y: 0.40189*height), control1: CGPoint(x: 0.81717*width, y: 0.29432*height), control2: CGPoint(x: 0.87145*width, y: 0.3423*height))
@@ -52,6 +54,7 @@ struct Pill: Shape {
         path.addCurve(to: CGPoint(x: 0.18744*width, y: 0.40189*height), control1: CGPoint(x: 0.24172*width, y: 0.50947*height), control2: CGPoint(x: 0.18744*width, y: 0.46149*height))
         path.addCurve(to: CGPoint(x: 0.30915*width, y: 0.29432*height), control1: CGPoint(x: 0.18744*width, y: 0.3423*height), control2: CGPoint(x: 0.24172*width, y: 0.29432*height))
         path.closeSubpath()
+        
         path = path.offsetBy(
             dx: rect.minX - path.boundingRect.minX,
             dy: rect.minY - path.boundingRect.minY - path.boundingRect.midY
@@ -65,7 +68,14 @@ struct Pill: Shape {
         path = path.offsetBy(
             dx: 0,
             dy: rect.midY - path.boundingRect.midY)
+        
         return path
+    }
+    
+    //MARK: - Drawing Constants
+    private struct Constants {
+        static let drawingWidth = 4.0
+        static let drawingHeight = 6.0
     }
 }
 
