@@ -16,12 +16,14 @@ import SwiftUI
         SetGameBrain()
     }
     
-    var cards: Array<SetGameBrain.Card> = []
-//    {
-//        game.cards
-//    }
+    var cards: Array<SetGameBrain.Card>
+    {
+        print("dealtCards:\(game.dealtCards.count)")
+        return game.dealtCards
+    }
+    
     var deckSize: Int {
-        game.deckSize
+        game.undealtCards.count
     }
     
     //MARK: - User Intents
@@ -30,7 +32,7 @@ import SwiftUI
     }
     
     func newGame() {
-        withAnimation(.easeInOut(duration: 5.0)){            
+        withAnimation(.easeInOut(duration: 1.0)){            
             game = SetGame.createGame()
             startGame()
         }
@@ -42,7 +44,7 @@ import SwiftUI
     
     func startGame() {
         withAnimation (.easeInOut(duration: 1.0)){
-           cards = game.startGame()
+           game.startGame()
         }
     }
 }

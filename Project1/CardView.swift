@@ -12,7 +12,6 @@ struct CardView: View {
     let card: SetGameBrain.Card
     
         var body: some View {
-            if card.isOnBoard {
                 GeometryReader { geometry in
                     ZStack {
                         RoundedRectangle(cornerRadius: Card.cornerRadius).fill(.white)
@@ -48,7 +47,6 @@ struct CardView: View {
                 }
                 .aspectRatio(Card.aspectRatio, contentMode: .fit)
             }
-        }
         
         func getColor() -> Color {
             let shapeColor : Color

@@ -26,12 +26,6 @@ struct SetGameBrain {
             }
         }
         undealtCards.shuffle()
-        
-//        for (index,var card) in cards.prefix(12).enumerated() {
-//            card.isOnBoard = true
-//            cards[index] = card
-//            deckSize-=1
-//        }
     }
     
     //MARK: - functions
@@ -89,14 +83,12 @@ struct SetGameBrain {
         }
     }
     
-    mutating func startGame() -> [Card] {
-        for (index,var card) in undealtCards.prefix(12).enumerated() {
-            card.isOnBoard = true
-            undealtCards[index] = card
-            deckSize-=1
+    mutating func startGame() {
+        //dealtCards.append(contentsOf: )
+        for (index, _) in undealtCards.prefix(12).enumerated() {
             dealtCards.append(undealtCards[index])
         }
-        return dealtCards
+        undealtCards.removeFirst(12)
     }
     
     mutating func threeNewCards() {
