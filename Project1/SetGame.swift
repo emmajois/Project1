@@ -9,7 +9,6 @@ import SwiftUI
 
 @Observable class SetGame {
     //MARK: - Properties
-    
     private var game = createGame()
 
     //MARK: - Model access
@@ -20,7 +19,9 @@ import SwiftUI
     var cards: Array<SetGameBrain.Card> {
         game.cards
     }
-    
+    var deckSize: Int {
+        game.deckSize
+    }
     //MARK: - User Intents
     func choose(_ card: SetGameBrain.Card) {
         game.choose(card: card)

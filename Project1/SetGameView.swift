@@ -31,7 +31,7 @@ struct SetGameView: View {
                     Button("3 More Cards") {
                         setGame.addMoreCards()
                     }
-                    //.disabled(setGame.deckSize < 1)
+                    .disabled(setGame.deckSize < 1)
                 }
             }
             .padding()
