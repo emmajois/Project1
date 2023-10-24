@@ -10,7 +10,7 @@ import Foundation
 struct SetGameBrain {
     //MARK: - Initiation
     init() {
-        cards = []
+        undealtCards = []
         
         for shapeVal in ShapeEnum.allCases {
             let shapePassing: ShapeEnum = shapeVal
@@ -20,12 +20,12 @@ struct SetGameBrain {
                             let fillPassing: FillEnum = fillVal
                             for count in 0..<3 {
                                 let tempCard = Card(shape: shapePassing, color: colorPassing, fill: fillPassing, count: count+1 )
-                                cards.append(tempCard)
+                                undealtCards.append(tempCard)
                     }
                 }
             }
         }
-        cards.shuffle()
+        undealtCards.shuffle()
         
 //        for (index,var card) in cards.prefix(12).enumerated() {
 //            card.isOnBoard = true
@@ -37,64 +37,50 @@ struct SetGameBrain {
     //MARK: - functions
     
     mutating func choose(card: Card){
-        if let chosenIndex = cards.firstIndex(matching: card) {
+        let selectedCards = dealtCards.filter {$0.isSelected && !$0.isMatched}
+        if let chosenIndex = undealtCards.firstIndex(matching: card) {
             //less than 3 are selected
             if selectedCards.count < 3 {
-                cards[chosenIndex].isSelected.toggle()
-                if cards[chosenIndex].isSelected {
-                    selectedCards.append(cards[chosenIndex])
-                } else {
-                    if let removeIndex = selectedCards.firstIndex(matching: card){
-                        selectedCards.remove(at: removeIndex)
-                    }
-                }
+                undealtCards[chosenIndex].isSelected.toggle()
             }
             
             //all 3 are selected
             if selectedCards.count == 3 {
                 //check if they already lost
-                if let removeIndex = cards.firstIndex(matching: selectedCards[0]){
-                    if cards[removeIndex].isLoser == true {
+                if let removeIndex = undealtCards.firstIndex(matching: selectedCards[0]){
+                    if undealtCards[removeIndex].isLoser == true {
                         for loser in selectedCards {
-                            if let loserIndex = cards.firstIndex(matching: loser) {
-                                cards[loserIndex].isSelected = false
-                                cards[loserIndex].isLoser = false
+                            if let loserIndex = undealtCards.firstIndex(matching: loser) {
+                                undealtCards[loserIndex].isSelected = false
+                                undealtCards[loserIndex].isLoser = false
                             }
                         }
-                        selectedCards = []
                         //select the card and append it to the cleared selected cards array
-                        cards[chosenIndex].isSelected.toggle()
-                        if cards[chosenIndex].isSelected {
-                            selectedCards.append(cards[chosenIndex])
-                        }
+                        undealtCards[chosenIndex].isSelected.toggle()
                     }
                     //check if they already won
-                    else if cards[removeIndex].isMatched == true {
+                    else if undealtCards[removeIndex].isMatched == true {
                         for winner in selectedCards {
-                            if let winnerIndex = cards.firstIndex(matching: winner) {
-                                cards[winnerIndex].isOnBoard = false
+                            if let winnerIndex = undealtCards.firstIndex(matching: winner) {
+                                undealtCards[winnerIndex].isOnBoard = false
                             }
                         }
-                        selectedCards = []
                         //select the card and append it to the cleared selected cards array
-                        cards[chosenIndex].isSelected.toggle()
-                        if cards[chosenIndex].isSelected {
-                            selectedCards.append(cards[chosenIndex])
-                        }
+                        undealtCards[chosenIndex].isSelected.toggle()
                         threeNewCards()
                     }
                     //check for a winner
                     else if checkWinner() {
                         for winner in selectedCards {
-                            if let winnerIndex = cards.firstIndex(matching: winner) {
-                                cards[winnerIndex].isMatched = true
+                            if let winnerIndex = undealtCards.firstIndex(matching: winner) {
+                                undealtCards[winnerIndex].isMatched = true
                             }
                         }
                     } //they must have lost
                     else {
                         for loser in selectedCards {
-                            if let loserIndex = cards.firstIndex(matching: loser) {
-                                cards[loserIndex].isLoser = true
+                            if let loserIndex = undealtCards.firstIndex(matching: loser) {
+                                undealtCards[loserIndex].isLoser = true
                             }
                         }
                     }
@@ -104,34 +90,34 @@ struct SetGameBrain {
     }
     
     mutating func startGame() -> [Card] {
-        for (index,var card) in cards.prefix(12).enumerated() {
+        for (index,var card) in undealtCards.prefix(12).enumerated() {
             card.isOnBoard = true
-            cards[index] = card
+            undealtCards[index] = card
             deckSize-=1
-            dealtCards.append(cards[index])
+            dealtCards.append(undealtCards[index])
         }
         return dealtCards
     }
     
     mutating func threeNewCards() {
+        let selectedCards = dealtCards.filter {$0.isSelected && !$0.isMatched}
         if selectedCards.count == 3 {
-            if let removeIndex = cards.firstIndex(matching: selectedCards[0]){
-                if cards[removeIndex].isMatched == true {
+            if let removeIndex = undealtCards.firstIndex(matching: selectedCards[0]){
+                if undealtCards[removeIndex].isMatched == true {
                     for winner in selectedCards {
-                        if let winnerIndex = cards.firstIndex(matching: winner) {
-                            cards[winnerIndex].isOnBoard = false
+                        if let winnerIndex = undealtCards.firstIndex(matching: winner) {
+                            undealtCards[winnerIndex].isOnBoard = false
                         }
                     }
-                    selectedCards = []
                 }
             }
         }
         
         var count = 0
-        for (index, _) in cards.enumerated() {
+        for (index, _) in undealtCards.enumerated() {
             if count < 3 {
-                if !cards[index].isOnBoard && !cards[index].isMatched {
-                    cards[index].isOnBoard = true
+                if !undealtCards[index].isOnBoard && !undealtCards[index].isMatched {
+                    undealtCards[index].isOnBoard = true
                     count+=1
                     deckSize-=1
                 }
@@ -142,9 +128,8 @@ struct SetGameBrain {
     }
     
     //MARK: - Properties
-    var cards: Array<Card>
+    var undealtCards: Array<Card>
     var dealtCards: Array<Card> = []
-    var selectedCards: Array<Card> = []
     var deckSize: Int = 81
     
     struct Card: Identifiable {
@@ -164,6 +149,7 @@ struct SetGameBrain {
     //MARK: - Private Helper Functions
     
     private func checkWinner()-> Bool{
+        let selectedCards = dealtCards.filter {$0.isSelected && !$0.isMatched}
         var shapeWinner = false
         var colorWinner = false
         var fillWinner = false

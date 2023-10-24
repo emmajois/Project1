@@ -26,7 +26,9 @@ struct SetGameView: View {
                 Spacer()
                 HStack {
                     Button("New Game") {
-                        setGame.newGame()
+                        withAnimation(.easeInOut(duration: 5.0)){
+                            setGame.newGame()
+                        }
                     }
                     Spacer()
                     Button("3 More Cards") {
@@ -45,10 +47,8 @@ struct SetGameView: View {
     private var randomOffScreenLocation: CGSize {
         let radius = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height) * 1.5
         let factor: Double = Double(Int.random(in: 1...360))
-        let x = radius * cos(factor)
-        let y = radius * sin(factor)
         
-        return CGSize(width: x, height: y)
+        return CGSize(width: radius * cos(factor), height: radius * sin(factor))
     }
     
     //MARK: - Helper Functions

@@ -30,8 +30,10 @@ import SwiftUI
     }
     
     func newGame() {
-        game = SetGame.createGame()
-        startGame()
+        withAnimation(.easeInOut(duration: 5.0)){            
+            game = SetGame.createGame()
+            startGame()
+        }
     }
     
     func addMoreCards() {
@@ -39,7 +41,7 @@ import SwiftUI
     }
     
     func startGame() {
-        withAnimation (.easeInOut(duration: 5.0)){
+        withAnimation (.easeInOut(duration: 1.0)){
            cards = game.startGame()
         }
     }

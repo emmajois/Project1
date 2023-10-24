@@ -44,7 +44,7 @@ struct CardView: View {
                             RoundedRectangle(cornerRadius: Card.cornerRadius).stroke(Color.red, lineWidth: 5)
                         }
                     }
-                    .foregroundStyle(.mint)
+                    .foregroundStyle(.black)
                 }
                 .aspectRatio(Card.aspectRatio, contentMode: .fit)
             }
