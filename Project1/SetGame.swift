@@ -16,12 +16,14 @@ import SwiftUI
         SetGameBrain()
     }
     
-    var cards: Array<SetGameBrain.Card> {
-        game.cards
-    }
+    var cards: Array<SetGameBrain.Card> = []
+//    {
+//        game.cards
+//    }
     var deckSize: Int {
         game.deckSize
     }
+    
     //MARK: - User Intents
     func choose(_ card: SetGameBrain.Card) {
         game.choose(card: card)
@@ -29,9 +31,16 @@ import SwiftUI
     
     func newGame() {
         game = SetGame.createGame()
+        startGame()
     }
     
     func addMoreCards() {
         game.threeNewCards()
+    }
+    
+    func startGame() {
+        withAnimation (.easeInOut(duration: 5.0)){
+           cards = game.startGame()
+        }
     }
 }

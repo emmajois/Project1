@@ -27,11 +27,11 @@ struct SetGameBrain {
         }
         cards.shuffle()
         
-        for (index,var card) in cards.prefix(12).enumerated() {
-            card.isOnBoard = true
-            cards[index] = card
-            deckSize-=1
-        }
+//        for (index,var card) in cards.prefix(12).enumerated() {
+//            card.isOnBoard = true
+//            cards[index] = card
+//            deckSize-=1
+//        }
     }
     
     //MARK: - functions
@@ -103,8 +103,17 @@ struct SetGameBrain {
         }
     }
     
+    mutating func startGame() -> [Card] {
+        for (index,var card) in cards.prefix(12).enumerated() {
+            card.isOnBoard = true
+            cards[index] = card
+            deckSize-=1
+            dealtCards.append(cards[index])
+        }
+        return dealtCards
+    }
+    
     mutating func threeNewCards() {
-        
         if selectedCards.count == 3 {
             if let removeIndex = cards.firstIndex(matching: selectedCards[0]){
                 if cards[removeIndex].isMatched == true {
@@ -134,6 +143,7 @@ struct SetGameBrain {
     
     //MARK: - Properties
     var cards: Array<Card>
+    var dealtCards: Array<Card> = []
     var selectedCards: Array<Card> = []
     var deckSize: Int = 81
     

@@ -17,6 +17,7 @@ struct SetGameView: View {
                 LazyVGrid (columns: columns(for: geometry.size, cardCount: howManyOnBoard(cardsPassed: setGame.cards))) {
                     ForEach(setGame.cards) {card in
                         CardView(card: card)
+                            .transition(AnyTransition.offset(randomOffScreenLocation))
                             .onTapGesture{
                                 setGame.choose(card)
                             }
@@ -36,6 +37,18 @@ struct SetGameView: View {
             }
             .padding()
         }
+        .onAppear {
+            setGame.startGame()
+        }
+    }
+    
+    private var randomOffScreenLocation: CGSize {
+        let radius = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height) * 1.5
+        let factor: Double = Double(Int.random(in: 1...360))
+        let x = radius * cos(factor)
+        let y = radius * sin(factor)
+        
+        return CGSize(width: x, height: y)
     }
     
     //MARK: - Helper Functions
