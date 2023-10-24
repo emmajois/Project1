@@ -30,6 +30,7 @@ struct SetGameBrain {
         for (index,var card) in cards.prefix(12).enumerated() {
             card.isOnBoard = true
             cards[index] = card
+            deckSize-=1
         }
     }
     
@@ -123,6 +124,7 @@ struct SetGameBrain {
                 if !cards[index].isOnBoard && !cards[index].isMatched {
                     cards[index].isOnBoard = true
                     count+=1
+                    deckSize-=1
                 }
             } else {
                 break
@@ -133,6 +135,7 @@ struct SetGameBrain {
     //MARK: - Properties
     var cards: Array<Card>
     var selectedCards: Array<Card> = []
+    var deckSize: Int = 81
     
     struct Card: Identifiable {
         //MARK:- Properties within Card
