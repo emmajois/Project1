@@ -18,7 +18,6 @@ import SwiftUI
     
     var cards: Array<SetGameBrain.Card>
     {
-        print("dealtCards:\(game.dealtCards.count)")
         return game.dealtCards
     }
     

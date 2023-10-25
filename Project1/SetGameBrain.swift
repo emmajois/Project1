@@ -29,52 +29,55 @@ struct SetGameBrain {
     }
     
     //MARK: - functions
-    
     mutating func choose(card: Card){
-        let selectedCards = dealtCards.filter {$0.isSelected && !$0.isMatched}
-        if let chosenIndex = undealtCards.firstIndex(matching: card) {
-            //less than 3 are selected
+        var selectedCards = dealtCards.filter{$0.isSelected}
+        
+        if let chosenIndex = dealtCards.firstIndex(matching: card) {
+            //less than 3 are selected initially
             if selectedCards.count < 3 {
-                undealtCards[chosenIndex].isSelected.toggle()
+                dealtCards[chosenIndex].isSelected.toggle()
             }
+            //need to recompute in case we just added another card
+            selectedCards = dealtCards.filter{$0.isSelected}
             
             //all 3 are selected
             if selectedCards.count == 3 {
                 //check if they already lost
-                if let removeIndex = undealtCards.firstIndex(matching: selectedCards[0]){
-                    if undealtCards[removeIndex].isLoser == true {
+                if let removeIndex = dealtCards.firstIndex(matching: selectedCards[0]){
+                    if dealtCards[removeIndex].isLoser == true {
                         for loser in selectedCards {
-                            if let loserIndex = undealtCards.firstIndex(matching: loser) {
-                                undealtCards[loserIndex].isSelected = false
-                                undealtCards[loserIndex].isLoser = false
+                            if let loserIndex = dealtCards.firstIndex(matching: loser) {
+                                dealtCards[loserIndex].isSelected = false
+                                dealtCards[loserIndex].isLoser = false
                             }
                         }
                         //select the card and append it to the cleared selected cards array
-                        undealtCards[chosenIndex].isSelected.toggle()
+                        dealtCards[chosenIndex].isSelected.toggle()
                     }
                     //check if they already won
-                    else if undealtCards[removeIndex].isMatched == true {
+                    else if dealtCards[removeIndex].isMatched == true {
                         for winner in selectedCards {
-                            if let winnerIndex = undealtCards.firstIndex(matching: winner) {
-                                undealtCards[winnerIndex].isOnBoard = false
+                            if let winnerIndex = dealtCards.firstIndex(matching: winner) {
+                                dealtCards[winnerIndex] = undealtCards[0]
+                                undealtCards.removeFirst(1)
                             }
                         }
-                        //select the card and append it to the cleared selected cards array
-                        undealtCards[chosenIndex].isSelected.toggle()
-                        threeNewCards()
+                        //select the new card
+                        dealtCards[chosenIndex].isSelected.toggle()
                     }
+                    
                     //check for a winner
                     else if checkWinner() {
                         for winner in selectedCards {
-                            if let winnerIndex = undealtCards.firstIndex(matching: winner) {
-                                undealtCards[winnerIndex].isMatched = true
+                            if let winnerIndex = dealtCards.firstIndex(matching: winner) {
+                                dealtCards[winnerIndex].isMatched = true
                             }
                         }
                     } //they must have lost
                     else {
                         for loser in selectedCards {
-                            if let loserIndex = undealtCards.firstIndex(matching: loser) {
-                                undealtCards[loserIndex].isLoser = true
+                            if let loserIndex = dealtCards.firstIndex(matching: loser) {
+                                dealtCards[loserIndex].isLoser = true
                             }
                         }
                     }
