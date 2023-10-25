@@ -87,45 +87,17 @@ struct SetGameBrain {
     }
     
     mutating func startGame() {
-        //dealtCards.append(contentsOf: )
-        for (index, _) in undealtCards.prefix(12).enumerated() {
-            dealtCards.append(undealtCards[index])
-        }
-        undealtCards.removeFirst(12)
+        addNewCards(cardCount: 12)
     }
     
-    mutating func threeNewCards() {
-        let selectedCards = dealtCards.filter {$0.isSelected && !$0.isMatched}
-        if selectedCards.count == 3 {
-            if let removeIndex = undealtCards.firstIndex(matching: selectedCards[0]){
-                if undealtCards[removeIndex].isMatched == true {
-                    for winner in selectedCards {
-                        if let winnerIndex = undealtCards.firstIndex(matching: winner) {
-                            undealtCards[winnerIndex].isOnBoard = false
-                        }
-                    }
-                }
-            }
-        }
-        
-        var count = 0
-        for (index, _) in undealtCards.enumerated() {
-            if count < 3 {
-                if !undealtCards[index].isOnBoard && !undealtCards[index].isMatched {
-                    undealtCards[index].isOnBoard = true
-                    count+=1
-                    deckSize-=1
-                }
-            } else {
-                break
-            }
-        }
+    mutating func addNewCards(cardCount: Int) {
+        dealtCards.append(contentsOf: undealtCards.prefix(cardCount))
+        undealtCards.removeFirst(cardCount)
     }
     
     //MARK: - Properties
     var undealtCards: Array<Card>
     var dealtCards: Array<Card> = []
-    var deckSize: Int = 81
     
     struct Card: Identifiable {
         //MARK:- Properties within Card

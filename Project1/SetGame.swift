@@ -38,7 +38,9 @@ import SwiftUI
     }
     
     func addMoreCards() {
-        game.threeNewCards()
+        withAnimation(.easeInOut(duration:1.0)){
+            game.addNewCards(cardCount: 3)
+        }
     }
     
     func startGame() {

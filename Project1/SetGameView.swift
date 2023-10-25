@@ -14,7 +14,7 @@ struct SetGameView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack{
-                LazyVGrid (columns: columns(for: geometry.size, cardCount: howManyOnBoard(cardsPassed: setGame.cards))) {
+                LazyVGrid (columns: columns(for: geometry.size, cardCount: setGame.cards.count)) {
                     ForEach(setGame.cards) {card in
                         CardView(card: card)
                             .transition(AnyTransition.offset(randomOffScreenLocation))
@@ -26,9 +26,7 @@ struct SetGameView: View {
                 Spacer()
                 HStack {
                     Button("New Game") {
-                        withAnimation(.easeInOut(duration: 5.0)){
                             setGame.newGame()
-                        }
                     }
                     Spacer()
                     Button("3 More Cards") {
@@ -66,16 +64,6 @@ struct SetGameView: View {
         } else {
            return Array(repeating: GridItem(.flexible()), count: 8)
         }
-    }
-    
-    private func howManyOnBoard(cardsPassed: [SetGameBrain.Card]) -> Int {
-        var count = 0
-        for card in setGame.cards {
-            if card.isOnBoard {
-                count+=1
-            }
-        }
-        return count
     }
 }
 
