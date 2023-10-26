@@ -18,9 +18,8 @@ struct SetGameBrain {
                 let colorPassing: ColorEnum = colorVal
                         for fillVal in FillEnum.allCases {
                             let fillPassing: FillEnum = fillVal
-                            for count in 0..<3 {
-                                let tempCard = Card(shape: shapePassing, color: colorPassing, fill: fillPassing, count: count+1 )
-                                undealtCards.append(tempCard)
+                            for count in 1..<4 {
+                                undealtCards.append(Card(shape: shapePassing, color: colorPassing, fill: fillPassing, count: count))
                     }
                 }
             }

@@ -14,7 +14,7 @@ struct SetGameView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack{
-                LazyVGrid (columns: columns(for: geometry.size, cardCount: setGame.cards.count), spacing: Constants.spacing) {
+                LazyVGrid (columns: columns(for: geometry.size), spacing: Constants.spacing) {
                     ForEach(setGame.cards) {card in
                         CardView(card: card)
                             .transition(AnyTransition.offset(randomOffScreenLocation))
@@ -38,16 +38,14 @@ struct SetGameView: View {
             .padding()
         }
         .onAppear {
-            withAnimation (.easeInOut(duration: 1.0)){
                 setGame.startGame()
-            }
         }
     }
     
     
     
     //MARK: - Helper Functions
-    private func columns(for size: CGSize, cardCount: Int) -> [GridItem] {
+    private func columns(for size: CGSize) -> [GridItem] {
         var fits = false
         let screenHeight = Double(size.height)
         let screenWidth = Double(size.width)
@@ -60,7 +58,7 @@ struct SetGameView: View {
         while !fits {
             cardWidth = (screenWidth - (columnCount - 1) * Constants.spacing) / columnCount
             cardHeight = (7 * cardWidth) / 5
-            rows = ceil(Double(cardCount) / columnCount)
+            rows = ceil(Double(setGame.cards.count) / columnCount)
             calculatedHeight = rows * cardHeight + (rows - 1.0) * Constants.spacing
             if calculatedHeight <= screenHeight {
                 fits = true
