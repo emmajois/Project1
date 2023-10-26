@@ -98,8 +98,23 @@ struct SetGameBrain {
     }
     
     mutating func addNewCards(cardCount: Int) {
-        dealtCards.append(contentsOf: undealtCards.prefix(cardCount))
-        undealtCards.removeFirst(cardCount)
+        let selectedCards = dealtCards.filter {$0.isSelected && $0.isMatched}
+        
+        if selectedCards.count == 3 && selectedCards[0].isMatched{
+            for winner in selectedCards {
+                if let winnerIndex = dealtCards.firstIndex(matching: winner) {
+                    if dealtCards.count < 13 {
+                        dealtCards[winnerIndex] = undealtCards[0]
+                        undealtCards.removeFirst(1)
+                    } else {
+                        dealtCards.remove(at: winnerIndex)
+                    }
+                }
+            }
+        } else {
+            dealtCards.append(contentsOf: undealtCards.prefix(cardCount))
+            undealtCards.removeFirst(cardCount)
+        }
     }
     
     //MARK: - Properties
