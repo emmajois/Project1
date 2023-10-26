@@ -56,6 +56,7 @@ struct SetGameBrain {
                     }
                     //check if they already won
                     else if dealtCards[removeIndex].isMatched == true {
+                        let selectedCard = dealtCards[chosenIndex]
                         for winner in selectedCards {
                             if let winnerIndex = dealtCards.firstIndex(matching: winner) {
                                 if dealtCards.count < 13 {
@@ -68,7 +69,9 @@ struct SetGameBrain {
                         }
                         //select the new card
                         //Needs work - needs to look at the new index, not just the one that it was at before because it shrinks
-                        dealtCards[chosenIndex].isSelected.toggle()
+                        if let newIndex = dealtCards.firstIndex(matching: selectedCard){
+                            dealtCards[newIndex].isSelected.toggle()
+                        }
                     }
                     
                     //check for a winner
