@@ -33,7 +33,7 @@ import SwiftUI
     }
     
     func newGame() {
-        withAnimation(.easeInOut(duration: 1.0)){            
+        withAnimation(.easeInOut(duration: 5.0)){            
             game = SetGame.createGame()
             startGame()
         }
@@ -46,8 +46,8 @@ import SwiftUI
     }
     
     func startGame() {
-        withAnimation (.easeInOut(duration: 1.0)){
+        
            game.startGame()
-        }
+        
     }
 }

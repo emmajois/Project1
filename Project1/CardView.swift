@@ -73,7 +73,7 @@ struct CardView: View {
         
         //MARK: - Drawing Constants
         private struct Card {
-            static let aspectRatio = 2.0/3.0
+            static let aspectRatio = 5.0/7.0
             static let cornerRadius = 10.0
             static let scaleFactor = 0.75
         }

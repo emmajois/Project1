@@ -38,7 +38,9 @@ struct SetGameView: View {
             .padding()
         }
         .onAppear {
-            setGame.startGame()
+            withAnimation (.easeInOut(duration: 1.0)){
+                setGame.startGame()
+            }
         }
     }
     
@@ -57,7 +59,7 @@ struct SetGameView: View {
         var columnCount = 3.0
         while !fits {
             cardWidth = (screenWidth - (columnCount - 1) * Constants.spacing) / columnCount
-            cardHeight = (3 * cardWidth) / 2
+            cardHeight = (7 * cardWidth) / 5
             rows = ceil(Double(cardCount) / columnCount)
             calculatedHeight = rows * cardHeight + (rows - 1.0) * Constants.spacing
             if calculatedHeight <= screenHeight {

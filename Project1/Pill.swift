@@ -74,8 +74,8 @@ struct Pill: Shape {
     
     //MARK: - Drawing Constants
     private struct Constants {
-        static let drawingWidth = 2.0
-        static let drawingHeight = 3.0
+        static let drawingWidth = 5.0
+        static let drawingHeight = 7.0
     }
 }
 
