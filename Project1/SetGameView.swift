@@ -14,7 +14,7 @@ struct SetGameView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack{
-                LazyVGrid (columns: columns(for: geometry.size, cardCount: setGame.cards.count)) {
+                LazyVGrid (columns: columns(for: geometry.size, cardCount: setGame.cards.count), spacing: Constants.spacing) {
                     ForEach(setGame.cards) {card in
                         CardView(card: card)
                             .transition(AnyTransition.offset(randomOffScreenLocation))
@@ -23,7 +23,6 @@ struct SetGameView: View {
                             }
                     }
                 }
-                .background(.pink)
                 Spacer()
                 HStack {
                     Button("New Game") {
@@ -47,19 +46,33 @@ struct SetGameView: View {
     
     //MARK: - Helper Functions
     private func columns(for size: CGSize, cardCount: Int) -> [GridItem] {
-        if cardCount < 13 {
-            return Array(repeating: GridItem(.flexible()), count: 3)
-        } else if cardCount < 21 {
-           return Array(repeating: GridItem(.flexible()), count: 4)
-        } else if cardCount < 31 {
-           return Array(repeating: GridItem(.flexible()), count: 5)
-        } else if cardCount < 49 {
-           return Array(repeating: GridItem(.flexible()), count: 6)
-        } else if cardCount < 64 {
-            return Array(repeating: GridItem(.flexible()), count: 7)
-        } else {
-           return Array(repeating: GridItem(.flexible()), count: 8)
+        var fits = false
+        let screenHeight = Double(size.height)
+        let screenWidth = Double(size.width)
+        var cardWidth: Double
+        var cardHeight: Double
+        var rows: Double
+        var calculatedHeight: Double
+        
+        var columnCount = 3.0
+        while !fits {
+            cardWidth = (screenWidth - (columnCount - 1) * Constants.spacing) / columnCount
+            cardHeight = (3 * cardWidth) / 2
+            rows = ceil(Double(cardCount) / columnCount)
+            calculatedHeight = rows * cardHeight + (rows - 1.0) * Constants.spacing
+            if calculatedHeight <= screenHeight {
+                fits = true
+            } else {
+                columnCount+=1.0
+            }
         }
+        
+        return Array(repeating: GridItem(.flexible(), spacing: Constants.spacing), count: Int(columnCount))
+    }
+    
+    //MARK: - Drawing Constants
+    private struct Constants {
+        static let spacing = 5.0
     }
 }
 
