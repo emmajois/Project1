@@ -49,12 +49,12 @@ struct CardView: View {
                 .aspectRatio(Card.aspectRatio, contentMode: .fit)
             }
     
-    private var randomOffScreenLocation: CGSize {
-        let radius = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height) * 1.5
-        let factor: CGFloat = Double(Int.random(in: 1...360))
-        
-        return CGSize(width: radius * cos(factor), height: radius * sin(factor))
-    }
+//    private var randomOffScreenLocation: CGSize {
+//        let radius = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height) * 1.5
+//        let factor: CGFloat = Double(Int.random(in: 1...360))
+//        
+//        return CGSize(width: radius * cos(factor), height: radius * sin(factor))
+//    }
     
         func getColor() -> Color {
             let shapeColor : Color

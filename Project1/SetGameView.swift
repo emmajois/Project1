@@ -23,6 +23,7 @@ struct SetGameView: View {
                             }
                     }
                 }
+                .background(.pink)
                 Spacer()
                 HStack {
                     Button("New Game") {
@@ -42,12 +43,7 @@ struct SetGameView: View {
         }
     }
     
-    private var randomOffScreenLocation: CGSize {
-        let radius = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height) * 1.5
-        let factor: CGFloat = Double(Int.random(in: 1...360))
-        
-        return CGSize(width: radius * cos(factor), height: radius * sin(factor))
-    }
+    
     
     //MARK: - Helper Functions
     private func columns(for size: CGSize, cardCount: Int) -> [GridItem] {
@@ -69,4 +65,13 @@ struct SetGameView: View {
 
 #Preview {
     SetGameView(setGame: SetGame())
+}
+
+extension View {
+    var randomOffScreenLocation: CGSize {
+        let radius = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height) * 1.5
+        let factor: CGFloat = Double(Int.random(in: 1...360))
+        
+        return CGSize(width: radius * cos(factor), height: radius * sin(factor))
+    }
 }
