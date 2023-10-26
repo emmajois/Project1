@@ -18,8 +18,8 @@ struct SetGameView: View {
                     ForEach(setGame.cards) {card in
                         CardView(card: card)
                             .transition(AnyTransition.offset(randomOffScreenLocation))
-                            .onTapGesture{
-                                setGame.choose(card)
+                            .onTapGesture {
+                                    setGame.choose(card)
                             }
                     }
                 }

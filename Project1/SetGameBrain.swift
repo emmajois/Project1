@@ -68,7 +68,6 @@ struct SetGameBrain {
                             }
                         }
                         //select the new card
-                        //Needs work - needs to look at the new index, not just the one that it was at before because it shrinks
                         if let newIndex = dealtCards.firstIndex(matching: selectedCard){
                             dealtCards[newIndex].isSelected.toggle()
                         }

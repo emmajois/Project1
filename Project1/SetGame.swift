@@ -27,7 +27,9 @@ import SwiftUI
     
     //MARK: - User Intents
     func choose(_ card: SetGameBrain.Card) {
-        game.choose(card: card)
+        withAnimation(.easeInOut(duration: 0.5)){
+            game.choose(card: card)
+        }
     }
     
     func newGame() {
