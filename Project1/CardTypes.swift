@@ -13,12 +13,14 @@ enum ShapeEnum: String, CaseIterable, Identifiable{
     case pill
     var id: String {self.rawValue}
 }
+
 enum ColorEnum: String, CaseIterable, Identifiable{
     case green
     case purple
     case red
     var id: String {self.rawValue}
 }
+
 enum FillEnum: String, CaseIterable, Identifiable {
     case empty
     case half

@@ -48,7 +48,8 @@ struct CardView: View {
                 }
                 .aspectRatio(Card.aspectRatio, contentMode: .fit)
             }
-    
+
+        //MARK: Helper Functions
         func getColor() -> Color {
             let shapeColor : Color
             
