@@ -59,8 +59,12 @@ struct SetGameBrain {
                         for winner in selectedCards {
                             if let winnerIndex = dealtCards.firstIndex(matching: winner) {
                                 if dealtCards.count < 13 {
-                                    dealtCards[winnerIndex] = undealtCards[0]
-                                    undealtCards.removeFirst(1)
+                                    if !undealtCards.isEmpty{
+                                        dealtCards[winnerIndex] = undealtCards[0]
+                                        undealtCards.removeFirst(1)
+                                    } else {
+                                        dealtCards.remove(at: winnerIndex)
+                                    }
                                 } else {
                                     dealtCards.remove(at: winnerIndex)
                                 }
@@ -71,15 +75,14 @@ struct SetGameBrain {
                             dealtCards[newIndex].isSelected.toggle()
                         }
                     }
-                    
-                    //check for a winner
+                    //if they haven't yet, we need to check for a winner
                     else if checkWinner() {
                         for winner in selectedCards {
                             if let winnerIndex = dealtCards.firstIndex(matching: winner) {
                                 dealtCards[winnerIndex].isMatched = true
                             }
                         }
-                    } //they must have lost
+                    } //they must have lost and we haven't updated that condition yet
                     else {
                         for loser in selectedCards {
                             if let loserIndex = dealtCards.firstIndex(matching: loser) {

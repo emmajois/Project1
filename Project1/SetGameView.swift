@@ -42,8 +42,6 @@ struct SetGameView: View {
         }
     }
     
-    
-    
     //MARK: - Helper Functions
     private func columns(for size: CGSize) -> [GridItem] {
         var fits = false

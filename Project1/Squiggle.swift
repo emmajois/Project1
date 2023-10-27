@@ -34,6 +34,7 @@ struct SquiggleShapeView: View {
         .foregroundStyle(Color(shapeColor))
         .frame(width:widthPassed*Constants.shrinkValue, height:heightPassed*Constants.shrinkValue)
     }
+    
     //MARK: - Drawing Constants
     private struct Constants {
         static let shrinkValue = 0.5
@@ -79,6 +80,7 @@ struct Squiggle: Shape {
         return path
     }
 }
+
 #Preview {
     SquiggleShapeView(shapeColor: .green, shapeFill: 0.25, iterator:1, widthPassed: 400.0, heightPassed: 600.0)
 }

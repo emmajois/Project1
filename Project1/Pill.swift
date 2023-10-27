@@ -32,6 +32,7 @@ struct PillShapeView: View {
         .foregroundStyle(Color(shapeColor))
         .frame(width:widthPassed*Constants.shrinkValue, height:heightPassed*Constants.shrinkValue)
     }
+    
     //MARK: - Drawing Constants
     private struct Constants {
         static let shrinkValue = 0.5
